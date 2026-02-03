@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KHAN-AI | Voice Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      background: #020617;
+      box-shadow: 0 0 20px #38bdf8;
+    }
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #38bdf8;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>🤖 KHAN-AI</h1>
+    <p>Tap and Speak</p>
+    <button onclick="start()">🎤 Start Jarvis</button>
+    <p id="output"></p>
+  </div>
+
+  <script>
+    const output = document.getElementById("output");
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.onresult = function(event) {
+      const text = event.results[0][0].transcript;
+      output.innerText = "You said: " + text;
+      speak("You said " + text);
+    };
+
+    function start() {
+      recognition.start();
+      speak("Hello, I am Khan AI. Speak now");
+    }
+
+    function speak(text) {
+      const speech = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(speech);
+    }
+  </script>
+
+</body>
+</html>
